@@ -1,0 +1,24 @@
+# Training data
+data/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Training data
+data/
+
+# Python environments
+venv/
+.venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
