@@ -1,4 +1,4 @@
-name: Test Azure Login
+name: Build and Push Docker Image
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  test-login:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,5 +24,11 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Check Azure account
-        run: az account show
+      - name: Login to Azure Container Registry
+        run: az acr login --name antbeeacr
+
+      - name: Build Docker image
+        run: docker build -t antbeeacr.azurecr.io/ant-bee-api:${{ github.sha }} .
+
+      - name: Push Docker image
+        run: docker push antbeeacr.azurecr.io/ant-bee-api:${{ github.sha }}
