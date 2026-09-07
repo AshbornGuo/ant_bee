@@ -84,7 +84,7 @@ def predict(image: Image.Image):
 @app.get("/")
 def root():
     return {
-        "message": "Bees vs Ants API is running"
+        "message": "Bees vs Ants API - CI/CD Test Successful!"
     }
 
 
