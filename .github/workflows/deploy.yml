@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build and Deploy
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,10 @@ jobs:
 
       - name: Push Docker image
         run: docker push antbeeacr.azurecr.io/ant-bee-api:${{ github.sha }}
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          az containerapp update \
+            --name ant-bee-test \
+            --resource-group test1 \
+            --image antbeeacr.azurecr.io/ant-bee-api:${{ github.sha }}
